@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Renu - I Love You Baby</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Rozha+One&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a000c, #4a001f, #2b0017, #0f0007);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .font-romantic {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-hindi {
+            font-family: 'Rozha One', serif;
+        }
+
+        /* Glassmorphism Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 182, 193, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(255, 0, 79, 0.25);
+        }
+
+        .glass-card-hover {
+            transition: all 0.4s ease;
+        }
+        .glass-card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px 0 rgba(255, 0, 100, 0.4);
+            border-color: rgba(255, 182, 193, 0.5);
+        }
+
+        /* Glowing Text Effects */
+        .glow-text-pink {
+            text-shadow: 0 0 10px #ff2a75, 0 0 20px #ff2a75, 0 0 40px #ff0055, 0 0 80px #ff0055;
+        }
+
+        .glow-text-gold {
+            text-shadow: 0 0 8px #ffd700, 0 0 20px #ff8c00;
+        }
+
+        /* 3D Pulsing Heart Effect */
+        .heart-3d-container {
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .heart-3d {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            animation: heartBeat 1.3s infinite ease-in-out;
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 0 25px rgba(255, 20, 147, 0.9));
+        }
+
+        .heart-3d:before,
+        .heart-3d:after {
+            position: absolute;
+            content: "";
+            left: 50px;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff0055, #ff5e62, #ff0033);
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart-3d:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1) rotate(0deg); }
+            14% { transform: scale(1.15) rotate(0deg); }
+            28% { transform: scale(1) rotate(0deg); }
+            42% { transform: scale(1.25) rotate(0deg); }
+            70% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* Particles and Petals Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Card Flip Animation */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a000c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff0055;
+            border-radius: 4px;
+        }
+
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            background: radial-gradient(circle, #fff 10%, transparent 80%);
+            border-radius: 50%;
+            animation: sparkleAnim 0.8s ease-out forwards;
+        }
+
+        @keyframes sparkleAnim {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(2.5) rotate(180deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="relative min-h-screen pb-16">
+
+    <!-- Background Canvas for Floating Hearts & Petals -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Music / Audio Toggle Control -->
+    <div class="fixed top-5 right-5 z-50">
+        <button id="music-btn" onclick="toggleAudio()" class="glass-card px-4 py-2.5 rounded-full flex items-center space-x-3 hover:bg-pink-600/30 transition-all border border-pink-400/40 shadow-lg text-xs md:text-sm font-medium tracking-wide">
+            <span id="music-icon"><i class="fas fa-music text-pink-400 animate-bounce"></i></span>
+            <span id="music-text">Play Soft Melodies</span>
+        </button>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="relative z-10 container mx-auto px-4 pt-10 md:pt-14 flex flex-col items-center">
+
+        <!-- Hero Section -->
+        <header class="text-center my-6 md:my-10 max-w-3xl">
+            <div class="inline-block px-4 py-1.5 rounded-full glass-card text-pink-300 text-xs md:text-sm font-semibold tracking-widest uppercase mb-4 border border-pink-500/30">
+                Forever & Always Dedicated To
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl font-bold font-romantic text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-400 to-red-400 glow-text-pink leading-tight my-2">
+                Renu
+            </h1>
+
+            <p class="text-2xl md:text-4xl font-romantic text-yellow-200 glow-text-gold mt-2">
+                "I Love You Baby"
+            </p>
+        </header>
+
+        <!-- Interactive 3D Heart Widget -->
+        <section class="my-8 md:my-12 text-center flex flex-col items-center">
+            <p class="text-xs md:text-sm text-pink-200/80 mb-6 tracking-wide animate-pulse">
+                ✨ Tap the glowing heart to feel the sparks ✨
+            </p>
+            
+            <div class="heart-3d-container p-6" onclick="triggerHeartBurst(event)">
+                <div class="heart-3d"></div>
+            </div>
+
+            <div id="heart-counter" class="mt-8 text-sm font-medium text-pink-300/90 glass-card px-4 py-1.5 rounded-full">
+                Loved <span id="tap-count" class="font-bold text-yellow-300 text-base">1000</span> times by heart!
+            </div>
+        </section>
+
+        <!-- Hindi Shayari Carousel Section -->
+        <section class="w-full max-w-3xl my-10 md:my-14 px-2">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-hindi font-bold text-pink-200 flex items-center justify-center gap-2">
+                    <span>❤️</span> दिल से रेनू के लिए शायरी <span>❤️</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto mt-2"></div>
+            </div>
+
+            <!-- Shayari Card Container -->
+            <div class="glass-card rounded-3xl p-6 md:p-10 relative overflow-hidden border border-pink-400/30 shadow-2xl">
+                <!-- Floating Decorative Hearts -->
+                <i class="fas fa-quote-left text-4xl text-pink-500/20 absolute top-4 left-4"></i>
+                <i class="fas fa-quote-right text-4xl text-pink-500/20 absolute bottom-4 right-4"></i>
+
+                <div id="shayari-content" class="text-center transition-all duration-500 min-h-[160px] flex flex-col justify-center items-center">
+                    <p id="shayari-text" class="text-lg md:text-2xl font-hindi leading-relaxed text-pink-100 glow-text-pink whitespace-pre-line">
+                        "तेरे चेहरे की हंसी से ही मेरी हर सुबह होती है,
+                        तू पास न हो तो मेरी हर शाम अधूरी होती है,
+                        मेरी ज़िंदगी की सबसे खूबसूरत दुआ हो तुम,
+                        आई लव यू रेनू (Renu), तुमसे ही मेरी हर खुशी होती है।"
+                    </p>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="flex justify-between items-center mt-8 pt-4 border-t border-pink-500/20">
+                    <button onclick="prevShayari()" class="glass-card p-3 rounded-full hover:bg-pink-500/30 transition text-pink-200">
+                        <i class="fas fa-chevron-left text-lg"></i>
+                    </button>
+                    <span id="shayari-indicator" class="text-xs text-pink-300 tracking-widest font-semibold">1 / 4</span>
+                    <button onclick="nextShayari()" class="glass-card p-3 rounded-full hover:bg-pink-500/30 transition text-pink-200">
+                        <i class="fas fa-chevron-right text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Flip Cards - Reasons Why I Love Renu -->
+        <section class="w-full max-w-4xl my-10 md:my-14">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-4xl font-romantic text-yellow-300 glow-text-gold">
+                    Reasons Why Renu is My Everything
+                </h2>
+                <p class="text-xs md:text-sm text-pink-200/70 mt-1">Click on any card to reveal a secret love note</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2">
+                <!-- Card 1 -->
+                <div class="h-48 perspective-1000 cursor-pointer" onclick="flipCard(this)">
+                    <div class="relative w-full h-full duration-700 transform-style-3d glass-card rounded-2xl p-6 flex items-center justify-center text-center shadow-lg hover:border-pink-400">
+                        <!-- Front -->
+                        <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-4">
+                            <i class="fas fa-smile-beam text-3xl text-pink-400 mb-3"></i>
+                            <h3 class="font-bold text-lg text-pink-100">Your Radiant Smile</h3>
+                            <span class="text-xs text-pink-300/60 mt-2">Tap to Flip ✨</span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-pink-900/90 to-purple-900/90 rounded-2xl p-5 flex items-center justify-center">
+                            <p class="text-sm font-hindi text-pink-100">रेनू, तुम्हारी मुस्कान मेरे सबसे उदास दिनों को भी रोशन कर देती है।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="h-48 perspective-1000 cursor-pointer" onclick="flipCard(this)">
+                    <div class="relative w-full h-full duration-700 transform-style-3d glass-card rounded-2xl p-6 flex items-center justify-center text-center shadow-lg hover:border-pink-400">
+                        <!-- Front -->
+                        <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-4">
+                            <i class="fas fa-heart text-3xl text-rose-400 mb-3"></i>
+                            <h3 class="font-bold text-lg text-pink-100">Your Pure Heart</h3>
+                            <span class="text-xs text-pink-300/60 mt-2">Tap to Flip ✨</span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-pink-900/90 to-purple-900/90 rounded-2xl p-5 flex items-center justify-center">
+                            <p class="text-sm font-hindi text-pink-100">तुम्हारी सादगी और प्यार से भरा दिल ही मेरी दुनिया की सबसे खूबसूरत जगह है।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="h-48 perspective-1000 cursor-pointer" onclick="flipCard(this)">
+                    <div class="relative w-full h-full duration-700 transform-style-3d glass-card rounded-2xl p-6 flex items-center justify-center text-center shadow-lg hover:border-pink-400">
+                        <!-- Front -->
+                        <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-4">
+                            <i class="fas fa-star text-3xl text-yellow-300 mb-3"></i>
+                            <h3 class="font-bold text-lg text-pink-100">My Safe Haven</h3>
+                            <span class="text-xs text-pink-300/60 mt-2">Tap to Flip ✨</span>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-pink-900/90 to-purple-900/90 rounded-2xl p-5 flex items-center justify-center">
+                            <p class="text-sm font-hindi text-pink-100">तुम्हारी बांहों में मुझे वो सुकून मिलता है जो पूरी दुनिया में कहीं नहीं है।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Romantic Love Note Box -->
+        <section class="w-full max-w-2xl my-8 px-2">
+            <div class="glass-card rounded-3xl p-8 text-center relative border border-yellow-400/30">
+                <div class="text-3xl text-yellow-300 mb-3">💌</div>
+                <h3 class="text-xl md:text-2xl font-romantic text-pink-200 mb-4">A Promise For Renu</h3>
+                <p class="text-sm md:text-base text-pink-100 leading-relaxed font-light">
+                    "Every moment spent with you feels like a dream come true. You brought warmth, brightness, and boundless joy into my life. I promise to cherish, love, and stand by you forever and always."
+                </p>
+                <div class="mt-6 text-2xl font-romantic text-yellow-300 glow-text-gold">
+                    Forever Yours Baby ❤️
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-xs text-pink-300/60">
+            Crafted with Infinite Love for Renu 💕
+        </footer>
+
+    </div>
+
+    <script>
+        /* Ambient Musical Audio Synthesizer (No external MP3 file dependency) */
+        let audioCtx = null;
+        let isPlaying = false;
+        let synthInterval = null;
+
+        function playRomanticChimes() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const notes = [261.63, 329.63, 392.00, 493.88, 523.25, 659.25]; // Soft Pentatonic C Major / E Minor tones
+            let step = 0;
+
+            synthInterval = setInterval(() => {
+                if (!isPlaying) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                const freq = notes[Math.floor(Math.random() * notes.length)];
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 2.5);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 2.6);
+            }, 600);
+        }
+
+        function toggleAudio() {
+            const icon = document.getElementById('music-icon');
+            const text = document.getElementById('music-text');
+
+            if (!isPlaying) {
+                isPlaying = true;
+                playRomanticChimes();
+                icon.innerHTML = '<i class="fas fa-volume-up text-pink-400 animate-pulse"></i>';
+                text.innerText = "Playing Melody";
+            } else {
+                isPlaying = false;
+                if (synthInterval) clearInterval(synthInterval);
+                icon.innerHTML = '<i class="fas fa-music text-pink-400"></i>';
+                text.innerText = "Play Soft Melodies";
+            }
+        }
+
+        const shayaris = [
+            `"तेरे चेहरे की हंसी से ही मेरी हर सुबह होती है,
+तू पास न हो तो मेरी हर शाम अधूरी होती है,
+मेरी ज़िंदगी की सबसे खूबसूरत दुआ हो तुम,
+आई लव यू रेनू (Renu), तुमसे ही मेरी हर खुशी होती है।"`,
+
+            `"दिल की धड़कन बनकर दिल में समा गए हो तुम,
+मेरी सासों की वजह बन गए हो तुम,
+कैसे कहें कितनी मोहब्बत है तुमसे रेनू,
+मेरी रूह की सबसे हसीं सदा बन गए हो तुम।"`,
+
+            `"तेरी हर अदा पर दिल फिदा होता है,
+तू ना हो तो ये दिल अकेला सा रोता है,
+तेरी मोहब्बत ही है मेरी ज़िंदगी रेनू,
+तू मिले तो लगता है हर सपना पूरा होता है।"`,
+
+            `"खुदा करे हमारी मोहब्बत इतनी गहरी हो,
+वक्त बदले पर तेरी मेरी चाहत वही हो,
+रेनू तुम मेरी ज़िंदगी का वो हसीन ख्वाब हो,
+जिसकी हर सुबह बस तुम्हारे नाम से जुड़ी हो।"`
+        ];
+
+        let currentShayariIndex = 0;
+
+        function updateShayari() {
+            const textEl = document.getElementById('shayari-text');
+            const indicatorEl = document.getElementById('shayari-indicator');
+
+            textEl.style.opacity = '0';
+            textEl.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                textEl.innerText = shayaris[currentShayariIndex];
+                indicatorEl.innerText = `${currentShayariIndex + 1} / ${shayaris.length}`;
+                textEl.style.opacity = '1';
+                textEl.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        function nextShayari() {
+            currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
+            updateShayari();
+        }
+
+        function prevShayari() {
+            currentShayariIndex = (currentShayariIndex - 1 + shayaris.length) % shayaris.length;
+            updateShayari();
+        }
+
+        /* Flip Cards Handler */
+        function flipCard(cardWrapper) {
+            const cardInner = cardWrapper.querySelector('.transform-style-3d');
+            cardInner.classList.toggle('rotate-y-180');
+        }
+
+        let tapCount = 1000;
+        function triggerHeartBurst(e) {
+            tapCount++;
+            document.getElementById('tap-count').innerText = tapCount;
+
+            // Create Sparkle Elements
+            for (let i = 0; i < 12; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                
+                const size = Math.random() * 18 + 8;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left + (Math.random() * 100 - 50);
+                const y = e.clientY - rect.top + (Math.random() * 100 - 50);
+
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+
+                e.currentTarget.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 800);
+            }
+        }
+
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class FloatingHeart {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 12 + 8;
+                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.sin(Math.random() * Math.PI) * 0.8;
+                this.opacity = Math.random() * 0.6 + 0.3;
+                this.color = ['#ff0055', '#ff5e62', '#ffb6c1', '#ffd700'][Math.floor(Math.random() * 4)];
+                this.swingAngle = Math.random() * Math.PI * 2;
+                this.swingSpeed = Math.random() * 0.03 + 0.01;
+            }
+
+            update() {
+                this.y -= this.speedY;
+                this.swingAngle += this.swingSpeed;
+                this.x += Math.sin(this.swingAngle) * 0.8;
+
+                if (this.y < -50) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                
+                // Draw Heart Path
+                const topCurveHeight = this.size * 0.3;
+                ctx.moveTo(this.x, this.y + topCurveHeight);
+                ctx.bezierCurveTo(
+                    this.x, this.y, 
+                    this.x - this.size / 2, this.y, 
+                    this.x - this.size / 2, this.y + topCurveHeight
+                );
+                ctx.bezierCurveTo(
+                    this.x - this.size / 2, this.y + (this.size + topCurveHeight) / 2, 
+                    this.x, this.y + this.size, 
+                    this.x, this.y + this.size
+                );
+                ctx.bezierCurveTo(
+                    this.x, this.y + (this.size + topCurveHeight) / 2, 
+                    this.x + this.size / 2, this.y + topCurveHeight, 
+                    this.x + this.size / 2, this.y
+                );
+                ctx.bezierCurveTo(
+                    this.x + this.size / 2, this.y, 
+                    this.x, this.y, 
+                    this.x, this.y + topCurveHeight
+                );
+
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Initialize Particles
+        for (let i = 0; i < 40; i++) {
+            particles.push(new FloatingHeart());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.onload = function() {
+            animateCanvas();
+        };
+    </script>
+</body>
+</html>
